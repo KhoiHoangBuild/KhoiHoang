@@ -35,7 +35,7 @@ const styles: { [key: string]: React.CSSProperties } = {
   heroTop: {
     textTransform: 'uppercase',
     letterSpacing: '4px',
-    color: '#ffd761',
+    color: '#3a84fd',
     fontWeight: 700,
     marginBottom: 14,
     fontSize: '1.07rem',
@@ -49,7 +49,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     textShadow: '0 4px 24px rgba(0,0,0,0.21)'
   },
   heroText: {
-    color: '#ffe7ad',
+    color: '#ffffffff',
     fontSize: '1.18rem',
     fontWeight: 500,
     lineHeight: 1.7,
@@ -69,15 +69,15 @@ const styles: { [key: string]: React.CSSProperties } = {
     border: 'none',
     borderRadius: 26,
     cursor: 'pointer',
-    background: '#ffd761',
+    background: '#3a84fd',
     color: '#222',
     marginRight: 8,
     transition: 'background .17s,color .17s'
   },
   heroBtnOutline: {
     background: 'transparent',
-    color: '#ffd761',
-    border: '2px solid #ffd761'
+    color: '#3a84fd',
+    border: '2px solid #3a84fd'
   }
 };
 

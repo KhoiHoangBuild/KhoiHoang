@@ -5,10 +5,10 @@ import React from 'react';
 const featureList = [
   {
     icon: (
-      <svg width="38" height="38" fill="none" stroke="#f7b93f" strokeWidth="2.4" viewBox="0 0 24 24">
+      <svg width="38" height="38" fill="none" stroke="#3a84fd" strokeWidth="2.4" viewBox="0 0 24 24">
         <circle cx="12" cy="12" r="11" strokeDasharray="2 3" />
         <path strokeLinecap="round" d="M4 17h12.5a2 2 0 0 0 2-2v-3.5a2 2 0 0 0-2-2H9.7M6 13V8a2 2 0 0 1 2-2h4" />
-        <rect x="2" y="13" width="4.5" height="3.5" rx="1" fill="#f7b93f" />
+        <rect x="2" y="13" width="4.5" height="3.5" rx="1" fill="#3a84fd" />
       </svg>
     ),
     title: 'Tư vấn miễn phí',
@@ -16,7 +16,7 @@ const featureList = [
   },
   {
     icon: (
-      <svg width="38" height="38" fill="none" stroke="#f7b93f" strokeWidth="2.4" viewBox="0 0 24 24">
+      <svg width="38" height="38" fill="none" stroke="#3a84fd" strokeWidth="2.4" viewBox="0 0 24 24">
         <circle cx="12" cy="12" r="11" strokeDasharray="2 3" />
         <path d="M7 10.7V7.3A1.3 1.3 0 0 1 8.3 6h7.4A1.3 1.3 0 0 1 17 7.3v7.4A1.3 1.3 0 0 1 15.7 16H8.3A1.3 1.3 0 0 1 7 14.7v-4z" />
         <path strokeLinecap="round" d="M9 12h2m2 0h.01" />
@@ -27,7 +27,7 @@ const featureList = [
   },
   {
     icon: (
-      <svg width="38" height="38" fill="none" stroke="#f7b93f" strokeWidth="2.4" viewBox="0 0 24 24">
+      <svg width="38" height="38" fill="none" stroke="#3a84fd" strokeWidth="2.4" viewBox="0 0 24 24">
         <circle cx="12" cy="12" r="11" strokeDasharray="2 3" />
         <path
           strokeLinecap="round"

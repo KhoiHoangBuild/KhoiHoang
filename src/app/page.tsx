@@ -1,62 +1,122 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import HeroSection from './components/HeroSection'; 
-import FeaturesSection from './components/FeaturesSection';
+import { useEffect, useState } from 'react';
+import { FaPhoneAlt, FaEnvelope } from 'react-icons/fa';
+import Image from 'next/image';
 
-export default function HomePage() {
+export default function Header() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 90);
+    const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   return (
     <>
-      {/* Header chồng lên Hero */}
+      {/* Thanh liên hệ phía trên */}
+      <div style={{
+        background: '#3a84fd',
+        padding: '2px 0',
+        fontSize: 15,
+        color: '#f1eaea',
+        width: '100%',
+      }}>
+        <div style={{
+          maxWidth: 1290,
+          margin: '0 auto',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'flex-start',
+          gap: 20,
+        }}>
+          <FaPhoneAlt style={{ marginRight: 5 }} size={14} /> 0901 184 500
+          <FaEnvelope style={{ margin: '0 6px 0 16px' }} size={14} />
+          khoihoangxaydung@gmail.com
+          {/* Địa chỉ */}
+          <span style={{ marginLeft: 22, opacity: 0.9 }}>
+            239/8, Võ Văn Hát, KP. Phước Hiệp, P. Long Trường, Q9, HCM
+          </span>
+        </div>
+      </div>
+
+      {/* Header nav chính */}
       <header style={{
         position: 'fixed',
-        top: 0, left: 0, width: '100%', zIndex: 100,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '32px 80px 0 80px',
-        background: scrolled ? 'rgba(173,145,16,0.98)' : 'rgba(0,0,0,0)',
-        color: '#fff',
-        boxShadow: scrolled ? '0 4px 16px rgba(0,0,0,0.16)' : 'none',
+        top: 30, // để không che mất thanh vàng trên
+        left: 0, width: '100%',
+        zIndex: 100,
+        background: scrolled ? '#3a84fd' : '#fff',
+        color: '#222',
+        boxShadow: scrolled ? '0 3px 20px rgba(0,0,0,0.11)' : 'none',
+        borderBottom: '1.5px solid #dadada',
         transition: 'background 0.3s, box-shadow 0.3s',
       }}>
-        <span style={{
-          fontWeight: 800, fontSize: '2rem', textTransform: 'uppercase', letterSpacing: 1.2, userSelect: 'none'
-        }}>KHÔI HOÀNG</span>
-        <nav style={{
-          display: 'flex', gap: 36, fontSize: '1.19rem', fontWeight: 700,
+        <div style={{
+          maxWidth: 1240,
+          margin: '0 auto',
+          padding: '0 18px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          height: 58,
         }}>
-          <Link href="/" style={{ color: '#fff', textDecoration: 'none', opacity: 0.96, padding: '2px 6px', borderBottom: '2.5px solid #ffd761' }}>Trang chủ</Link>
-          <Link href="/blogs" style={{ color: '#fff', textDecoration: 'none', opacity: 0.96, padding: '2px 6px' }}>Bài viết</Link>
-          <Link href="/contact" style={{ color: '#fff', textDecoration: 'none', opacity: 0.96, padding: '2px 6px' }}>Liên hệ</Link>
-        </nav>
-        <div style={{ display: 'flex', gap: 14, }}>
-          <Link href="/login" style={{
-            border: '2px solid #ffd761', color: '#ffd761', background: 'transparent', borderRadius: 24,
-            fontWeight: 600, fontSize: '1.06rem', padding: '8px 24px', cursor: 'pointer', textDecoration: 'none',
-            transition: 'background 0.18s,color 0.18s',
-          }}>Đăng nhập</Link>
-          <Link href="/register" style={{
-            border: 'none', color: '#222', background: '#ffd761', borderRadius: 24, fontWeight: 700,
-            fontSize: '1.06rem', padding: '8px 24px', cursor: 'pointer', textDecoration: 'none', marginLeft: 2,
-            transition: 'background 0.18s,color 0.18s',
-          }}>Đăng ký</Link>
+          {/* Logo và brand */}
+          <div style={{
+            display: 'flex', alignItems: 'center', gap: 12,
+          }}>
+            <Image
+              src="https://res.cloudinary.com/daowdjuug/image/upload/v1754139352/BetterImage_1754136011275_qwyphw.jpg"
+              alt="Logo"
+              width={110}
+              height={38}
+              style={{ height: 38, marginRight: 7, width: "auto" }}
+            />
+            <span style={{
+              fontWeight: 900,
+              letterSpacing: 1,
+              fontSize: '1.28rem',
+              textTransform: 'uppercase'
+            }}>
+              KHÔI HOÀNG
+            </span>
+          </div>
+
+          {/* Menu */}
+          <nav style={{
+            display: 'flex', gap: 28,
+            fontWeight: 600, fontSize: '1.09rem'
+          }}>
+            <Link href="/" style={{
+              color: '#3a84fd',
+              textDecoration: 'none',
+              borderRadius: 4,
+              fontWeight: 700,
+              background: '#d7e2f4ff',
+              padding: '4.5px 18px',
+              border: '1.5px solid #3a84fd'
+            }}>Trang chủ</Link>
+            <Link href="/news" style={{ color: '#3e3232', textDecoration: 'none', padding: '4.5px 12px' }}>Bài viết</Link>
+            <Link href="/contact" style={{ color: '#3e3232', textDecoration: 'none', padding: '4.5px 12px' }}>Liên hệ</Link>
+          </nav>
+
+          {/* Số điện thoại bên cạnh */}
+          <a href="tel:0901184500" style={{
+            background: '#b52424',
+            color: '#fff', fontWeight: 900,
+            borderRadius: 4, padding: '8px 16px',
+            textDecoration: 'none',
+            fontSize: '1.05rem',
+            letterSpacing: 1.12
+          }}>
+            0901 184 500
+          </a>
         </div>
       </header>
-
-      <main>
-        <HeroSection />
-        <FeaturesSection />
-      </main>
+      {/* Spacer để tránh header fix chồng lên content */}
+      <div style={{ height: 94 }} />
     </>
   );
 }
