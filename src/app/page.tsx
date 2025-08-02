@@ -1,103 +1,195 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import Link from 'next/link';
+
+const bgImage =
+  'https://res.cloudinary.com/daowdjuug/image/upload/v1754133360/481801367_122133317990592234_2635574733279367831_n_zvpjnp.jpg';
+
+const styles: { [key: string]: React.CSSProperties } = {
+  header: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    zIndex: 11,
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: '24px 55px 0 55px',
+    color: '#fff',
+  },
+  left: {
+    fontSize: '2.0rem',
+    fontWeight: 800,
+    letterSpacing: '1.4px',
+    textTransform: 'uppercase',
+    fontFamily: 'Montserrat, Segoe UI, Arial, sans-serif',
+    flex: 1,
+    userSelect: 'none',
+  },
+  center: {
+    display: 'flex',
+    gap: 32,
+    fontWeight: 600,
+    fontSize: '1.14rem',
+    flex: 2,
+    justifyContent: 'center',
+  },
+  navLink: {
+    color: '#fff',
+    textDecoration: 'none',
+    padding: '2px 6px',
+    transition: 'opacity 0.2s, border 0.18s',
+    opacity: 0.94,
+    borderBottom: '3px solid transparent'
+  },
+  navLinkActive: {
+    borderBottom: '3px solid #ffd761',
+    opacity: 1,
+  },
+  right: {
+    display: 'flex',
+    gap: 16,
+    flex: 1,
+    justifyContent: 'flex-end'
+  },
+  loginButton: {
+    border: '2px solid #ffd761',
+    color: '#ffd761',
+    background: 'transparent',
+    borderRadius: 24,
+    fontWeight: 700,
+    fontSize: '1rem',
+    padding: '7px 22px',
+    cursor: 'pointer',
+    textDecoration: 'none',
+    transition: 'background .18s,color .18s',
+  },
+  registerButton: {
+    border: 'none',
+    color: '#222',
+    background: '#ffd761',
+    borderRadius: 24,
+    fontWeight: 700,
+    fontSize: '1rem',
+    padding: '7px 22px',
+    cursor: 'pointer',
+    textDecoration: 'none',
+    marginLeft: 2,
+    transition: 'background .18s,color .18s',
+  },
+  hero: {
+    position: 'relative',
+    width: '100vw',
+    height: '100vh',
+    background: `url(${bgImage}) center center/cover no-repeat`,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden'
+  },
+  heroOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100vw',
+    height: '100vh',
+    background: 'rgba(24,34,54,0.56)',
+    zIndex: 1
+  },
+  heroContent: {
+    position: 'relative',
+    zIndex: 2,
+    color: '#fff',
+    textAlign: 'center',
+    width: '100%',
+    maxWidth: 900,
+    padding: '0 16px',
+    marginTop: '40px'
+  },
+  heroTopText: {
+    textTransform: 'uppercase',
+    letterSpacing: '4px',
+    fontWeight: 700,
+    color: '#ffd761',
+    fontSize: '1.04rem',
+    marginBottom: 16,
+    opacity: 0.94,
+    display: 'inline-block',
+  },
+  heroTitle: {
+    fontWeight: 900,
+    fontSize: '3.1rem',
+    margin: '10px 0 32px 0',
+    lineHeight: 1.16,
+    textShadow: '0 4px 24px rgba(0,0,0,0.24)',
+  },
+  heroText: {
+    color: '#ffe7ad',
+    opacity: 0.98,
+    fontSize: '1.22rem',
+    fontWeight: 500,
+    marginBottom: 28,
+    lineHeight: 1.7,
+    textShadow: '0 2px 12px rgba(0,0,0,0.12)'
+  },
+  heroBtns: {
+    marginTop: 24,
+    display: 'flex',
+    gap: 18,
+    justifyContent: 'center'
+  },
+  heroBtn: {
+    fontWeight: 600,
+    letterSpacing: '1px',
+    fontSize: '1.07rem',
+    padding: '12px 28px',
+    border: 'none',
+    borderRadius: 26,
+    cursor: 'pointer',
+    background: '#ffd761',
+    color: '#222',
+    transition: 'background .19s,color .19s'
+  },
+  heroBtnOutline: {
+    background: 'transparent',
+    color: '#ffd761',
+    border: '2px solid #ffd761',
+  }
+};
+
+export default function HomePage() {
+  // Optional: highlight menu theo route nếu muốn (ở đây menu chỉ là ví dụ)
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <>
+      <header style={styles.header}>
+        <div style={styles.left}>Khôi hoàng</div>
+        <nav style={styles.center}>
+          <Link href="/" style={{ ...styles.navLink, ...styles.navLinkActive }}>Trang chủ</Link>
+          <Link href="/blogs" style={styles.navLink}>Bài viết</Link>
+          <Link href="/contact" style={styles.navLink}>Liên hệ</Link>
+        </nav>
+        <div style={styles.right}>
+          <Link href="/login" style={styles.loginButton}>Đăng nhập</Link>
+          <Link href="/register" style={styles.registerButton}>Đăng ký</Link>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </header>
+
+      <section style={styles.hero}>
+        <div style={styles.heroOverlay}></div>
+        <div style={styles.heroContent}>
+          <span style={styles.heroTopText}>FRESH &amp; QUALITY BUILDING</span>
+          <h1 style={styles.heroTitle}>Chào mừng bạn đến với công ty xây dựng Khôi Hoàng!</h1>
+          <div style={styles.heroText}>
+            Chúng tôi cung cấp các dịch vụ xây dựng, thương mại và dịch vụ chất lượng hàng đầu.<br />
+            Khám phá các bài viết và liên hệ với chúng tôi để biết thêm chi tiết.
+          </div>
+          <div style={styles.heroBtns}>
+            <Link href="/blogs" style={styles.heroBtn}>Dịch vụ</Link>
+            <Link href="/contact" style={{ ...styles.heroBtn, ...styles.heroBtnOutline }}>Liên hệ</Link>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
