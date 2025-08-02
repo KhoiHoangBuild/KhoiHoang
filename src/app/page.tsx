@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import HeroSection from './components/HeroSection'; 
+import FeaturesSection from './components/FeaturesSection';
 
 export default function HomePage() {
   const [scrolled, setScrolled] = useState(false);
@@ -54,7 +55,7 @@ export default function HomePage() {
 
       <main>
         <HeroSection />
-        {/* Các component khác của trang chủ đặt tiếp bên dưới */}
+        <FeaturesSection />
       </main>
     </>
   );
