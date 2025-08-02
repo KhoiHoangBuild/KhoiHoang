@@ -1,194 +1,52 @@
-import { useState } from 'react';
-import Image from 'next/image';
+import dbConnect from '../../lib/mongodb';
+import Account from '../../models/Account';
+import bcrypt from 'bcryptjs';
+import { IncomingForm } from 'formidable';
 
-export default function RegisterPage() {
-  const [form, setForm] = useState({ email: '', password: '', phoneNumber: '', address: '' });
-  const [imgAvatar, setImgAvatar] = useState(null);
-  const [message, setMessage] = useState('');
+export const config = { api: { bodyParser: false } };
 
-  const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
-  const handleFileChange = e => setImgAvatar(e.target.files[0]);
+export default async function handler(req, res) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ message: 'Method not allowed' });
+  }
 
-  const handleSubmit = async e => {
-    e.preventDefault();
-    setMessage('');
+  const form = new IncomingForm();
+  form.parse(req, async (err, fields, files) => {
+    if (err) return res.status(500).json({ message: 'Error parsing form data' });
 
-    const formData = new FormData();
-    formData.append('email', form.email);
-    formData.append('password', form.password);
-    formData.append('phoneNumber', form.phoneNumber);
-    formData.append('address', form.address);
-    if (imgAvatar) formData.append('imgAvatar', imgAvatar);
+    const email = Array.isArray(fields.email) ? fields.email[0] : fields.email;
+    const rawPassword = Array.isArray(fields.password) ? fields.password[0] : fields.password;
+    const phoneNumber = Array.isArray(fields.phoneNumber) ? fields.phoneNumber[0] : fields.phoneNumber;
+    const address = Array.isArray(fields.address) ? fields.address[0] : fields.address;
 
-    const res = await fetch('/api/register', { method: 'POST', body: formData });
-    const data = await res.json();
-    setMessage(data.message || (res.ok ? 'Đăng ký thành công!' : 'Lỗi không rõ!'));
-  };
+    await dbConnect();
+    console.log("Email kiểm tra:", email, typeof email);
+    console.log("MONGODB_URI:", process.env.MONGODB_URI);
 
-  return (
-    <div style={styles.container}>
-      <div style={styles.leftPanel}>
-        <Image
-          src="https://res.cloudinary.com/daowdjuug/image/upload/v1754130858/images_idim6g.jpg"
-          alt="Xây dựng đẹp"
-          style={styles.image}
-        />
-      </div>
+    const existing = await Account.findOne({ email });
+    if (existing) {
+      return res.status(400).json({ message: 'Email đã tồn tại!' });
+    }
 
-      <div style={styles.rightPanel}>
-        <div style={styles.formWrapper}>
-          <h2 style={styles.title}>Đăng ký tài khoản</h2>
-          <form onSubmit={handleSubmit} style={styles.form}>
-            <label style={styles.label}>
-              Email <span style={{ color: 'red' }}>*</span>
-              <input
-                name="email"
-                type="email"
-                placeholder="example@company.com"
-                required
-                value={form.email}
-                onChange={handleChange}
-                style={styles.input}
-              />
-            </label>
+    const hashed = await bcrypt.hash(String(rawPassword), 10);
 
-            <label style={styles.label}>
-              Mật khẩu <span style={{ color: 'red' }}>*</span>
-              <input
-                name="password"
-                type="password"
-                placeholder="Nhập mật khẩu"
-                required
-                value={form.password}
-                onChange={handleChange}
-                style={styles.input}
-              />
-            </label>
+    // Sử dụng trực tiếp link ảnh cho trường imgUrl
+    const imgUrl = "https://res.cloudinary.com/daowdjuug/image/upload/v1754130556/avatars/images_s8qmxp";
 
-            <label style={styles.label}>
-              Số điện thoại
-              <input
-                name="phoneNumber"
-                placeholder="VD: 0912345678"
-                value={form.phoneNumber}
-                onChange={handleChange}
-                style={styles.input}
-              />
-            </label>
+    const newAccount = await Account.create({
+      email: String(email),
+      password: hashed,
+      phoneNumber: String(phoneNumber),
+      address: String(address),
+      imgUrl
+    });
 
-            <label style={styles.label}>
-              Địa chỉ
-              <input
-                name="address"
-                placeholder="Địa chỉ liên hệ"
-                value={form.address}
-                onChange={handleChange}
-                style={styles.input}
-              />
-            </label>
-
-            <label style={styles.label}>
-              Ảnh đại diện (Avatar)
-              <input type="file" accept="image/*" onChange={handleFileChange} style={styles.fileInput} />
-            </label>
-
-            <button type="submit" style={styles.submitButton}>Đăng ký</button>
-          </form>
-          {message && <p style={styles.message}>{message}</p>}
-        </div>
-      </div>
-    </div>
-  );
+    return res.status(201).json({
+      message: 'Đăng ký thành công!',
+      account: {
+        email: newAccount.email,
+        imgUrl
+      }
+    });
+  });
 }
-
-const styles = {
-  container: {
-    minHeight: '100vh',
-    display: 'flex',
-    background: 'linear-gradient(120deg, #f0f5ff 0%, #d2e3fc 100%)',
-    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-  },
-  leftPanel: {
-    flex: '1.3',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    background: '#e9f0ff',
-    borderRight: '3px solid #1e88e5',
-    padding: '20px',
-  },
-  image: {
-    borderRadius: '15px',
-    maxWidth: '100%',
-    maxHeight: '80vh',
-    objectFit: 'cover',
-    boxShadow: '0 12px 24px rgba(30, 136, 229, 0.3)',
-  },
-  rightPanel: {
-    flex: '1',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: '40px',
-  },
-  formWrapper: {
-    width: '100%',
-    maxWidth: '450px',
-    background: '#fff',
-    padding: '30px 35px',
-    borderRadius: '12px',
-    boxShadow: '0 10px 30px rgba(30, 136, 229, 0.2)',
-  },
-  title: {
-    color: '#1e88e5',
-    fontWeight: '700',
-    fontSize: '2rem',
-    marginBottom: '28px',
-    textAlign: 'center',
-    letterSpacing: '1.2px',
-  },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  label: {
-    marginBottom: '18px',
-    color: '#1769aa',
-    fontWeight: '600',
-    fontSize: '0.95rem',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  input: {
-    marginTop: '6px',
-    padding: '12px 16px',
-    borderRadius: '8px',
-    border: '2px solid #c8d8fa',
-    outline: 'none',
-    fontSize: '1rem',
-    transition: 'border-color 0.3s ease',
-  },
-  fileInput: {
-    marginTop: '6px',
-  },
-  submitButton: {
-    marginTop: '25px',
-    backgroundColor: '#1976d2',
-    fontWeight: '700',
-    border: 'none',
-    borderRadius: '10px',
-    color: '#fff',
-    padding: '14px',
-    fontSize: '1.1rem',
-    cursor: 'pointer',
-    boxShadow: '0 5px 18px rgba(25, 118, 210, 0.4)',
-    transition: 'background-color 0.3s ease',
-  },
-  message: {
-    marginTop: '20px',
-    color: '#d32f2f',
-    fontWeight: '600',
-    fontSize: '1.1rem',
-    textAlign: 'center',
-  },
-};
