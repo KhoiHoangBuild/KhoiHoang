@@ -1,108 +1,157 @@
-// app/components/FeaturesSection.tsx
-import React from 'react';
+"use client";
 
-// Bạn có thể dùng SVG inline cho đẹp, hoặc dùng icon font nếu có
-const featureList = [
+import React from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/autoplay";
+import Image from "next/image";
+import { FaRegHandshake, FaUserTie, FaTools, FaClock, FaTags, FaHeart, FaLaptopCode, FaHardHat, FaClipboardList, FaShieldAlt } from "react-icons/fa";
+import { FaCheckCircle } from "react-icons/fa";
+// Cam kết: có thể gán thêm icon từng cái tuỳ ý
+const commitments = [
   {
-    icon: (
-      <svg width="38" height="38" fill="none" stroke="#3a84fd" strokeWidth="2.4" viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="11" strokeDasharray="2 3" />
-        <path strokeLinecap="round" d="M4 17h12.5a2 2 0 0 0 2-2v-3.5a2 2 0 0 0-2-2H9.7M6 13V8a2 2 0 0 1 2-2h4" />
-        <rect x="2" y="13" width="4.5" height="3.5" rx="1" fill="#3a84fd" />
-      </svg>
-    ),
-    title: 'Tư vấn miễn phí',
-    desc: 'Giải pháp xây dựng tối ưu & tiết kiệm.',
+    text: "Uy tín hàng đầu trong ngành xây dựng.",
+    icon: <FaRegHandshake className="text-2xl" />,
   },
   {
-    icon: (
-      <svg width="38" height="38" fill="none" stroke="#3a84fd" strokeWidth="2.4" viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="11" strokeDasharray="2 3" />
-        <path d="M7 10.7V7.3A1.3 1.3 0 0 1 8.3 6h7.4A1.3 1.3 0 0 1 17 7.3v7.4A1.3 1.3 0 0 1 15.7 16H8.3A1.3 1.3 0 0 1 7 14.7v-4z" />
-        <path strokeLinecap="round" d="M9 12h2m2 0h.01" />
-      </svg>
-    ),
-    title: 'Chất lượng đảm bảo',
-    desc: 'Thi công đúng chuẩn, bảo hành lâu dài.',
+    text: "Đội ngũ kỹ sư dày dạn kinh nghiệm.",
+    icon: <FaUserTie className="text-2xl" />,
   },
   {
-    icon: (
-      <svg width="38" height="38" fill="none" stroke="#3a84fd" strokeWidth="2.4" viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="11" strokeDasharray="2 3" />
-        <path
-          strokeLinecap="round"
-          d="M15.47 15.47A6 6 0 1 1 12 6v4.59l2.3 2.3"
-        />
-      </svg>
-    ),
-    title: 'Tiến độ linh hoạt',
-    desc: 'Đảm bảo tiến độ, hỗ trợ thay đổi hợp đồng.',
+    text: "Chất lượng công trình đảm bảo.",
+    icon: <FaTools className="text-2xl" />,
+  },
+  {
+    text: "Tiến độ thi công nhanh chóng.",
+    icon: <FaClock className="text-2xl" />,
+  },
+  {
+    text: "Giá cả cạnh tranh minh bạch.",
+    icon: <FaTags className="text-2xl" />,
+  },
+  {
+    text: "Dịch vụ khách hàng tận tâm.",
+    icon: <FaHeart className="text-2xl" />,
+  },
+  {
+    text: "Công nghệ xây dựng tiên tiến.",
+    icon: <FaLaptopCode className="text-2xl" />,
+  },
+  {
+    text: "An toàn lao động tuyệt đối.",
+    icon: <FaHardHat className="text-2xl" />,
+  },
+  {
+    text: "Quy trình quản lý chuyên nghiệp.",
+    icon: <FaClipboardList className="text-2xl" />,
+  },
+  {
+    text: "Bảo hành dài hạn cho mọi dự án.",
+    icon: <FaShieldAlt className="text-2xl" />,
   },
 ];
 
-const styles: { [key: string]: React.CSSProperties } = {
-  wrapper: {
-    width: '100vw',
-    background: '#f7f7f7',
-    padding: '38px 0 34px 0',
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  inner: {
-  width: '100%',
-  maxWidth: 1020,
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'stretch',
-  gap: 80,
-  flexWrap: 'wrap',
-  },
-  item: {
-    background: '#fff',
-    borderRadius: 20,
-    flex: 1,
-    minWidth: 265,
-    margin: '0 8px',
-    display: 'flex',
-    flexDirection: 'column' ,
-    alignItems: 'center',
-    padding: '30px 14px 20px 14px',
-    boxShadow: '0 2px 18px 0 rgba(60,60,60,0.06)',
-    textAlign: 'center'
-  },
-  icon: {
-    marginBottom: 20,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 42,
-  },
-  title: {
-    fontWeight: 700,
-    fontSize: '1.14rem',
-    marginBottom: 6,
-    color: '#222',
-  },
-  desc: {
-    fontWeight: 400,
-    fontSize: '1rem',
-    color: '#444',
-    opacity: 0.92,
-  }
-};
+const images = [
+  "https://res.cloudinary.com/daowdjuug/image/upload/v1754150031/Screenshot_2025-08-02_225109_oclxt8.png",
+  "https://res.cloudinary.com/daowdjuug/image/upload/v1754149948/Screenshot_2025-08-02_225046_pbbcjk.png",
+  "https://res.cloudinary.com/daowdjuug/image/upload/v1754149815/500018675_122146281968592234_590589945726049239_n_tbkjtq.jpg",
+];
 
-const FeaturesSection: React.FC = () => (
-  <section style={styles.wrapper}>
-    <div style={styles.inner}>
-      {featureList.map((ft, idx) => (
-        <div style={styles.item} key={idx}>
-          <div style={styles.icon}>{ft.icon}</div>
-          <div style={styles.title}>{ft.title}</div>
-          <div style={styles.desc}>{ft.desc}</div>
+export default function FeaturesSection() {
+  return (
+    <section className="bg-gray-50 py-8 px-2">
+      {/* Slider cam kết */}
+      <div className="max-w-[1200px] mx-auto">
+        <Swiper
+          modules={[Autoplay]}
+          slidesPerView={4}
+          spaceBetween={24}
+          autoplay={{ delay: 1800, disableOnInteraction: false }}
+          loop
+          breakpoints={{
+            320: { slidesPerView: 1 },
+            640: { slidesPerView: 2 },
+            1024: { slidesPerView: 4 },
+          }}
+        >
+          {commitments.map((item, idx) => (
+            <SwiperSlide key={idx}>
+              <div
+                className={`flex items-center gap-3 rounded-lg px-5 py-4 h-[76px] font-medium shadow-lg text-base 
+                  border transition-colors duration-300
+                  ${idx % 2 === 0
+                    ? "bg-blue-600 text-white border-blue-600"
+                    : "bg-white text-blue-600 border-blue-600"
+                  }`}
+                style={{ minHeight: 76, maxHeight: 76 }}
+              >
+                {/* Icon riêng từng card */}
+                <span className={`${idx % 2 === 0 ? "text-white" : "text-blue-600"} min-w-[28px]`}>
+                  {item.icon}
+                </span>
+                <span className="flex-1 font-bold">{item.text}</span>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+
+      {/* Phần chính: slider ảnh + giới thiệu */}
+      <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row items-center gap-10 bg-white rounded-2xl shadow-xl p-8 mt-8">
+        {/* Ảnh bên trái là slider */}
+        <div className="w-full md:w-1/2 flex items-center">
+          <Swiper
+            modules={[Autoplay]}
+            slidesPerView={1}
+            autoplay={{ delay: 2300, disableOnInteraction: false }}
+            loop
+            className="rounded-xl shadow-lg w-full"
+          >
+            {images.map((url, idx) => (
+              <SwiperSlide key={idx}>
+                <div className="aspect-[4/3] w-full h-auto rounded-xl overflow-hidden flex items-center bg-gray-100">
+                  <Image
+                    src={url}
+                    alt={`Hình Khôi Hoàng ${idx + 1}`}
+                    width={600}
+                    height={450}
+                    className="w-full h-full object-cover rounded-xl transition-all duration-700 mx-auto"
+                    quality={80}
+                    sizes="(max-width: 768px) 100vw,
+                          (max-width: 1200px) 50vw,
+                          600px"
+                    priority={idx === 0}
+                  />
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
-      ))}
-    </div>
-  </section>
-);
-
-export default FeaturesSection;
+        {/* Giới thiệu bên phải */}
+        <div className="w-full md:w-1/2">
+          <h2 className="text-3xl font-bold text-blue-700 mb-3">
+            Khôi Hoàng – Kiến tạo giá trị bền vững
+          </h2>
+          <p className="text-lg text-gray-700 mb-4">
+            Công ty Xây dựng Thương mại Dịch vụ Khôi Hoàng tự hào là đơn vị đồng hành cùng hàng trăm dự án lớn nhỏ trên khắp cả nước. Chúng tôi lấy <span className="text-blue-700 font-semibold">Uy tín, Chất lượng, Chuyên nghiệp</span> làm giá trị cốt lõi cho mọi hoạt động, cam kết mang lại giải pháp xây dựng tối ưu, an toàn và hiệu quả nhất cho khách hàng.
+          </p>
+          <ul className="pl-0 mt-4 space-y-3">
+            {[
+              "Đội ngũ kỹ sư, công nhân giỏi chuyên môn, tâm huyết.",
+              "Áp dụng công nghệ hiện đại, quy trình quản lý chuyên nghiệp.",
+              "Đảm bảo tiến độ, nghiệm thu đúng tiêu chuẩn chất lượng.",
+              "Luôn đặt lợi ích, sự hài lòng của khách hàng lên trên hết.",
+            ].map((item, idx) => (
+              <li key={idx} className="flex items-start gap-2 text-gray-700">
+                {/* Tick màu vàng nổi bật */}
+                <FaCheckCircle className="text-yellow-400 mt-0.5 text-lg flex-shrink-0" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
+}

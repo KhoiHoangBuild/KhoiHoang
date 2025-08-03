@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 const BlogSchema = new mongoose.Schema({
+  title: { type: String, required: true }, 
   description: { type: String },
   createdDate: { type: Date, default: Date.now },
   like: { type: Number, default: 0 },
