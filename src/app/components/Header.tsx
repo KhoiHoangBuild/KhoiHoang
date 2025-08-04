@@ -109,17 +109,42 @@ export default function Header() {
             <Link href="/contact" style={{ color: '#3e3232', textDecoration: 'none', padding: '4.5px 12px' }}>Liên hệ</Link>
           </nav>
 
-          {/* Số điện thoại bên cạnh */}
-          <a href="tel:0901184500" style={{
-            background: '#b52424',
-            color: '#fff', fontWeight: 900,
-            borderRadius: 4, padding: '8px 16px',
-            textDecoration: 'none',
-            fontSize: '1.05rem',
-            letterSpacing: 1.12
-          }}>
-            0901 184 500
-          </a>
+          {/* 2 nút đăng nhập, đăng ký */}
+          <div style={{ display: 'flex', gap: 12 }}>
+            <Link
+              href="/login"
+              style={{
+                background: '#3a84fd',
+                color: '#fff',
+                fontWeight: 700,
+                borderRadius: 4,
+                padding: '8px 18px',
+                textDecoration: 'none',
+                fontSize: '1.05rem',
+                letterSpacing: 1.05,
+                border: '1.5px solid #2461ad'
+              }}
+            >
+              Đăng nhập
+            </Link>
+            <Link
+              href="/register"
+              style={{
+                background: '#fff',
+                color: '#3a84fd',
+                fontWeight: 700,
+                borderRadius: 4,
+                padding: '8px 18px',
+                textDecoration: 'none',
+                fontSize: '1.05rem',
+                letterSpacing: 1.05,
+                border: '1.5px solid #3a84fd'
+              }}
+            >
+              Đăng ký
+            </Link>
+          </div>
+
         </div>
       </header>
     </>

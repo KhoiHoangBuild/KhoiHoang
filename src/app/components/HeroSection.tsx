@@ -2,7 +2,7 @@
 import React from 'react';
 import Image from 'next/image';
 const heroImg =
-  'https://res.cloudinary.com/daowdjuug/image/upload/v1754145747/Untitled_uam6rp.png';
+  'https://res.cloudinary.com/daowdjuug/image/upload/v1754298147/Hero_tfjyjl.png';
 
 export default function HeroSection() {
   return (
@@ -12,7 +12,7 @@ export default function HeroSection() {
       alignItems: 'center',     // căn giữa dọc
       justifyContent: 'center', // căn giữa ngang
       background: '#fff',        // hoặc màu bạn thích,
-      paddingTop: '102px'
+      paddingTop: '66px'
     }}>
       <Image
       src={heroImg}

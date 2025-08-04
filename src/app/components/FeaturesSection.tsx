@@ -81,13 +81,13 @@ export default function FeaturesSection() {
                 className={`flex items-center gap-3 rounded-lg px-5 py-4 h-[76px] font-medium shadow-lg text-base 
                   border transition-colors duration-300
                   ${idx % 2 === 0
-                    ? "bg-blue-600 text-white border-blue-600"
-                    : "bg-white text-blue-600 border-blue-600"
+                    ? "bg-[#3a84fd] text-white border-[#3a84fd]"
+                    : "bg-white text-[#3a84fd] border-[#3a84fd]"
                   }`}
                 style={{ minHeight: 76, maxHeight: 76 }}
               >
                 {/* Icon riêng từng card */}
-                <span className={`${idx % 2 === 0 ? "text-white" : "text-blue-600"} min-w-[28px]`}>
+                <span className={`${idx % 2 === 0 ? "text-white" : "text-[#3a84fd]"} min-w-[28px]`}>
                   {item.icon}
                 </span>
                 <span className="flex-1 font-bold">{item.text}</span>
@@ -130,7 +130,7 @@ export default function FeaturesSection() {
         </div>
         {/* Giới thiệu bên phải */}
         <div className="w-full md:w-1/2">
-          <h2 className="text-3xl font-bold text-blue-700 mb-3">
+          <h2 className="text-3xl font-bold text-[#3a84fd] mb-3">
             Khôi Hoàng – Kiến tạo giá trị bền vững
           </h2>
           <p className="text-lg text-gray-700 mb-4">
